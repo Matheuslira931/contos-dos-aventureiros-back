@@ -20,8 +20,20 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('login', [App\Http\Controllers\AuthController::class,'login']);
 Route::middleware(['jwt.auth'])->group(function () {
+
+    // Usuário
     Route::post('logout', [App\Http\Controllers\AuthController::class,'logout']);
+
+    // Álbum
+    Route::post('criar-album', [App\Http\Controllers\AlbumController::class,'criarAlbum']);
+    Route::post('atualizar-album/{albumId}', [App\Http\Controllers\AlbumController::class,'atualizarAlbum']);
+
+
 });
 
+// Usuário
 Route::post('criar-usuario', [App\Http\Controllers\UserController::class,'criarUsuario']);
 Route::get('consultar-usuarios', [App\Http\Controllers\UserController::class,'consultarUsuarios']);
+
+// Álbum
+
