@@ -28,6 +28,10 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::post('criar-album', [App\Http\Controllers\AlbumController::class,'criarAlbum']);
     Route::post('atualizar-album/{albumId}', [App\Http\Controllers\AlbumController::class,'atualizarAlbum']);
 
+    // Áudio
+    Route::post('criar-audio', [App\Http\Controllers\AudioController::class,'criarAudio']);
+    Route::post('atualizar-audio/{audioId}', [App\Http\Controllers\AudioController::class,'atualizarAudio']);
+
 
 });
 
@@ -36,4 +40,5 @@ Route::post('criar-usuario', [App\Http\Controllers\UserController::class,'criarU
 Route::get('consultar-usuarios', [App\Http\Controllers\UserController::class,'consultarUsuarios']);
 
 // Álbum
+Route::get('consultar-albuns', [App\Http\Controllers\AlbumController::class,'consultarAlbuns']);
 

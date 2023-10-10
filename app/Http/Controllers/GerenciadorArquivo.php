@@ -29,6 +29,12 @@ class GerenciadorArquivo extends Controller
 
     }
 
+    public static function removerAudio($nomeArquivo){
+
+        return self::removerArquivo($nomeArquivo, "audio");
+
+    }
+
     private static function removerArquivo($nomeArquivo, $diretorio){
 
         $excluido = false;
