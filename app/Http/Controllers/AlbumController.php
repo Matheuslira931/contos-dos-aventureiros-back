@@ -21,6 +21,55 @@ class AlbumController extends Controller
 
     }
 
+    public function exibirAlbum($albumId){
+
+        $album = Album::find($albumId);
+
+        if($album){
+
+            $audios =  DB::table('audio')
+            ->where('album_id', '=', $album->id)
+            ->get();
+
+            $album->audios = $audios;
+
+            return $album;
+
+        }else{
+
+            return response()->json(['errors' => 'Álbum não encontrado'], 422);
+
+        }
+
+    }
+
+    public static function deletarAlbum($albumId){
+
+        $album = Album::find($albumId);
+
+        if($album){
+
+            $audios =  DB::table('audio')
+            ->where('album_id', '=', $album->id)
+            ->get();
+
+            if($audios){
+                foreach ($audios as $audio) {
+                    AudioController::deletarAudio($audio->id);
+                }
+            }
+
+            $album->delete();
+            return $album;
+
+        }else{
+
+            return response()->json(['errors' => 'Álbum não encontrado'], 422);
+
+        }
+
+    }
+
     public function criarAlbum(Request $request){
 
         $nomeImagem = '';

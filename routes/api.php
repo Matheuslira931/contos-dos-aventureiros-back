@@ -23,14 +23,17 @@ Route::middleware(['jwt.auth'])->group(function () {
 
     // Usuário
     Route::post('logout', [App\Http\Controllers\AuthController::class,'logout']);
+    Route::delete('deletar-usuario/{usuarioId}', [App\Http\Controllers\UserController::class,'deletarUsuario']);
 
     // Álbum
     Route::post('criar-album', [App\Http\Controllers\AlbumController::class,'criarAlbum']);
     Route::post('atualizar-album/{albumId}', [App\Http\Controllers\AlbumController::class,'atualizarAlbum']);
+    Route::delete('deletar-album/{albumId}', [App\Http\Controllers\AlbumController::class,'deletarAlbum']);
 
     // Áudio
     Route::post('criar-audio', [App\Http\Controllers\AudioController::class,'criarAudio']);
     Route::post('atualizar-audio/{audioId}', [App\Http\Controllers\AudioController::class,'atualizarAudio']);
+    Route::delete('deletar-audio/{audioId}', [App\Http\Controllers\AudioController::class,'deletarAudio']);
 
 
 });
@@ -38,7 +41,13 @@ Route::middleware(['jwt.auth'])->group(function () {
 // Usuário
 Route::post('criar-usuario', [App\Http\Controllers\UserController::class,'criarUsuario']);
 Route::get('consultar-usuarios', [App\Http\Controllers\UserController::class,'consultarUsuarios']);
+Route::get('exibir-usuario/{usuarioId}', [App\Http\Controllers\UserController::class,'exibirUsuario']);
 
 // Álbum
 Route::get('consultar-albuns', [App\Http\Controllers\AlbumController::class,'consultarAlbuns']);
+Route::get('exibir-album/{albumId}', [App\Http\Controllers\AlbumController::class,'exibirAlbum']);
+
+// Áudio
+Route::get('consultar-audios', [App\Http\Controllers\AudioController::class,'consultarAudios']);
+Route::get('exibir-audio/{audioId}', [App\Http\Controllers\AudioController::class,'exibirAudio']);
 

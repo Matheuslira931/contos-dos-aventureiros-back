@@ -110,4 +110,42 @@ class AudioController extends Controller
 
     }
 
+    public static function deletarAudio($audioId){
+
+        $audio = Audio::find($audioId);
+
+        if($audio){
+
+            $audio->delete();
+            return $audio;
+
+        }else{
+            return response()->json(['errors' => 'Áudio não encontrado'], 422);
+        }
+
+    }
+
+    public function exibirAudio($audioId){
+
+        $audio = Audio::find($audioId);
+
+        if($audio){
+
+            $album =  DB::table('albums')
+            ->where('id', '=', $audio->album_id)
+            ->get();
+
+            $audio->album = $album;
+
+            return $audio;
+
+        }else{
+
+            return response()->json(['errors' => 'Áudio não encontrado'], 422);
+
+        }
+
+    }
+
+
 }

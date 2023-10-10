@@ -58,4 +58,50 @@ class UserController extends Controller
 
     }
 
+    public function deletarUsuario($usuarioId){
+
+        $user = User::find($usuarioId);
+
+        if($user){
+
+            $albuns =  DB::table('albums')
+            ->where('usuario_id', '=', $user->id)
+            ->get();
+
+            if($albuns){
+                foreach ($albuns as $album) {
+                    AlbumController::deletarAlbum($album->id);
+                }
+            }
+
+            $user->delete();
+            return $user;
+        }else{
+            return response()->json(['errors' => 'Usuário não encontrado'], 422);
+        }
+
+    }
+
+    public function exibirUsuario($usuarioId){
+
+        $user = User::find($usuarioId);
+
+        if($user){
+
+            $albums =  DB::table('albums')
+            ->where('usuario_id', '=', $user->id)
+            ->get();
+
+            $user->albums = $albums;
+
+            return $user;
+
+        }else{
+
+            return response()->json(['errors' => 'Usuário não encontrado'], 422);
+
+        }
+
+    }
+
 }
