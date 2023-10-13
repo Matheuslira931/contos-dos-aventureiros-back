@@ -24,6 +24,7 @@ Route::middleware(['jwt.auth'])->group(function () {
     // Usuário
     Route::post('logout', [App\Http\Controllers\AuthController::class,'logout']);
     Route::delete('deletar-usuario/{usuarioId}', [App\Http\Controllers\UserController::class,'deletarUsuario']);
+    Route::put('atualizar-usuario/{usuarioId}', [App\Http\Controllers\UserController::class,'atualizarUsuario']);
 
     // Álbum
     Route::post('criar-album', [App\Http\Controllers\AlbumController::class,'criarAlbum']);

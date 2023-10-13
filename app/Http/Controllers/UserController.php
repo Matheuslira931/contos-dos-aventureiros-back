@@ -104,4 +104,39 @@ class UserController extends Controller
 
     }
 
+    public function atualizarUsuario(Request $request, $usuarioId){
+
+        $user = User::find($usuarioId);
+
+        if($user){
+
+            $rules = [
+                'nome' => [
+                    'required'
+                ]
+            ];
+
+            $messages = [
+                'required' => "Este campo é de preenchimento obrigatório.",
+            ];
+
+            $validated = Validator::make($request->all(), $rules, $messages);
+
+            if ($validated->fails()) {
+                return response()->json(['errors' => $validated->errors()], 422);
+            }
+
+
+            $user->update([
+                'nome' => $request->nome,
+            ]);
+
+            return $user;
+
+        }{
+            return response()->json(['errors' => 'Usuário não encontrado'], 422);
+        }
+
+    }
+
 }
