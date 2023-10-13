@@ -15,6 +15,7 @@ class AuthController extends Controller
 
             $usuario =  DB::table('users')
             ->where('email', '=', $request->email)
+            ->select('id', 'nome', 'email')
             ->get();
 
             $resposta = [
@@ -22,7 +23,7 @@ class AuthController extends Controller
                 'usuario' => $usuario
             ];
 
-            return response()->json($resposta);
+            return $resposta;
 
         }
         else {

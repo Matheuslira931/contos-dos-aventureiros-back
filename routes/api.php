@@ -35,6 +35,10 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::post('atualizar-audio/{audioId}', [App\Http\Controllers\AudioController::class,'atualizarAudio']);
     Route::delete('deletar-audio/{audioId}', [App\Http\Controllers\AudioController::class,'deletarAudio']);
 
+    // Favorito
+    Route::get('consultar-favoritos/{usuarioId}', [App\Http\Controllers\FavoritoController::class,'consultarFavoritos']);
+    Route::post('criar-favorito', [App\Http\Controllers\FavoritoController::class,'criarFavorito']);
+    Route::delete('deletar-favorito/{favoritoId}', [App\Http\Controllers\FavoritoController::class,'deletarFavorito']);
 
 });
 
@@ -50,4 +54,3 @@ Route::get('exibir-album/{albumId}', [App\Http\Controllers\AlbumController::clas
 // Áudio
 Route::get('consultar-audios', [App\Http\Controllers\AudioController::class,'consultarAudios']);
 Route::get('exibir-audio/{audioId}', [App\Http\Controllers\AudioController::class,'exibirAudio']);
-
