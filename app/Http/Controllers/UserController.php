@@ -18,7 +18,7 @@ class UserController extends Controller
         if($users){
             return $users;
         }else{
-            return response()->json(['errors' => 'Não foi encontrado usuários'], 422);
+            return response()->json(['errors' => 'Não foi encontrado usuário(s)'], 422);
         }
 
     }

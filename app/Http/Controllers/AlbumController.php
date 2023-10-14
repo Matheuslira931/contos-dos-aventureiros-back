@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\DB;
 
 class AlbumController extends Controller
 {
+
+    public $imagemAlbumGenerica;
+
+    public function __construct()
+    {
+      $this->imagemAlbumGenerica = public_path("\\" . "imagem" . "\\") . "imagem-album-generico.png";
+    }
+
     public function consultarAlbuns(){
 
         $albuns = Album::get();
@@ -95,6 +103,8 @@ class AlbumController extends Controller
 
         if($request->file('imagem')){
             $nomeImagem = GerenciadorArquivo::adicionarImagem($request->titulo, $request->file('imagem'));
+        }else{
+            $nomeImagem = $this->imagemAlbumGenerica;
         }
 
         $album = Album::Create([
@@ -133,9 +143,15 @@ class AlbumController extends Controller
             $nomeImagem = $album->imagem;
 
             if($request->file('imagem')){
-                if(GerenciadorArquivo::removerImagem($album->imagem)){
+
+                if($album->imagem == $this->imagemAlbumGenerica){
                     $nomeImagem = GerenciadorArquivo::adicionarImagem($request->titulo, $request->file('imagem'));
+                }elseif($album->imagem){
+                    if(GerenciadorArquivo::removerImagem($album->imagem)){
+                        $nomeImagem = GerenciadorArquivo::adicionarImagem($request->titulo, $request->file('imagem'));
+                    }
                 }
+
             }
 
             $album->update([
@@ -147,6 +163,22 @@ class AlbumController extends Controller
             return $album;
 
         }{
+            return response()->json(['errors' => 'Álbum não encontrado'], 422);
+        }
+
+    }
+
+    public function pesquisarAnuncio(Request $request){
+
+        $pesquisa = '%' . $request->textoPesquisa . '%';
+
+        $albums =  DB::table('albums')
+        ->where('titulo', 'like', $pesquisa)
+        ->get();
+
+        if(count($albums) > 0){
+            return $albums;
+        }else{
             return response()->json(['errors' => 'Álbum não encontrado'], 422);
         }
 

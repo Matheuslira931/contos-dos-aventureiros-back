@@ -50,6 +50,7 @@ class GerenciadorArquivo extends Controller
 
         $nomeArquivo = $titulo.'-file-'.time().rand(1,1000).'.'.$arquivo->extension();
         $nomeArquivo = str_replace(' ', '', $nomeArquivo);
+        $nomeArquivo = str_replace(':', '', $nomeArquivo);
         $arquivo->move(public_path($diretorio),$nomeArquivo);
 
         return $nomeArquivo;
