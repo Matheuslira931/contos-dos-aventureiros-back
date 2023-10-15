@@ -71,9 +71,6 @@ class AudioController extends Controller
         if($audio){
 
             $rules = [
-                'audio' => [
-                    'required'
-                ],
                 'titulo' => [
                     'required'
                 ]
@@ -116,6 +113,7 @@ class AudioController extends Controller
 
         if($audio){
 
+            GerenciadorArquivo::removerAudio($audio->nome);
             $audio->delete();
             return $audio;
 

@@ -168,7 +168,7 @@ class AlbumController extends Controller
 
     }
 
-    public function pesquisarAnuncio(Request $request){
+    public function pesquisarAlbum(Request $request){
 
         $pesquisa = '%' . $request->textoPesquisa . '%';
 

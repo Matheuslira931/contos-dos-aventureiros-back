@@ -51,6 +51,7 @@ Route::get('exibir-usuario/{usuarioId}', [App\Http\Controllers\UserController::c
 // Álbum
 Route::get('consultar-albuns', [App\Http\Controllers\AlbumController::class,'consultarAlbuns']);
 Route::get('exibir-album/{albumId}', [App\Http\Controllers\AlbumController::class,'exibirAlbum']);
+Route::get('pesquisar-album', [App\Http\Controllers\AlbumController::class,'pesquisarAlbum']);
 
 // Áudio
 Route::get('consultar-audios', [App\Http\Controllers\AudioController::class,'consultarAudios']);
