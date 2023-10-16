@@ -10,12 +10,12 @@ use Illuminate\Support\Facades\DB;
 class AlbumController extends Controller
 {
 
-    public $imagemAlbumGenerica;
+    public $imagemAlbumGenerica = "imagem-album-generico.png";
 
-    public function __construct()
+    /* function __construct()
     {
       $this->imagemAlbumGenerica = public_path("\\" . "imagem" . "\\") . "imagem-album-generico.png";
-    }
+    }*/
 
     public function consultarAlbuns(){
 
@@ -57,6 +57,8 @@ class AlbumController extends Controller
 
         if($album){
 
+            GerenciadorArquivo::removerImagem($album->imagem);
+
             $audios =  DB::table('audio')
             ->where('album_id', '=', $album->id)
             ->get();
@@ -64,6 +66,16 @@ class AlbumController extends Controller
             if($audios){
                 foreach ($audios as $audio) {
                     AudioController::deletarAudio($audio->id);
+                }
+            }
+
+            $favoritos =  DB::table('favoritos')
+            ->where('album_id', '=', $album->id)
+            ->get();
+
+            if($favoritos){
+                foreach ($favoritos as $favorito) {
+                    FavoritoController::deletarFavorito($favorito->id);
                 }
             }
 
